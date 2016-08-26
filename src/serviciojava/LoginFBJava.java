@@ -18,7 +18,7 @@ import javax.swing.Timer;
  */
 public class LoginFBJava extends javax.swing.JFrame {
     private int TIEMPO;
-    LoginUsuario nuevaSesion = new LoginUsuario();
+    
     public String user;
     public String key;    
 
@@ -33,7 +33,7 @@ public class LoginFBJava extends javax.swing.JFrame {
         Image img = kit.createImage(pathIcon);
         this.setIconImage(img);
     }
-   
+   //TODO:CAMBIAR POR SI NO FUNCIONA LA ENTRADA 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,7 +84,7 @@ public class LoginFBJava extends javax.swing.JFrame {
       
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //instanciar la clase LoginUsuario
-        
+        LoginUsuario nuevaSesion = new LoginUsuario();
         try {
             user = txtUsuario.getText();
             nuevaSesion.LoginUser(user);
@@ -100,6 +100,8 @@ public class LoginFBJava extends javax.swing.JFrame {
                 loged.setTime(TIEMPO*60*1000);
                 this.setVisible(false);
                 loged.setVisible(true);
+                //ConfigBD conf = new ConfigBD();
+                //conf.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null,"No existe el usuario","",JOptionPane.ERROR_MESSAGE);
                 
