@@ -1,17 +1,9 @@
 package serviciojava;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
-
 import java.sql.PreparedStatement;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
+
 /**
  * @author DAVID PUC POOT
  */

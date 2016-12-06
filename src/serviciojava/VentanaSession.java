@@ -8,8 +8,11 @@ package serviciojava;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class VentanaSession extends javax.swing.JFrame {
         LoginFBJava againLogin = new LoginFBJava();
-        
+         OutputStream output = null;
     /**
      * Creates new form VentanaSession
      */
@@ -31,7 +34,8 @@ public class VentanaSession extends javax.swing.JFrame {
         Image img = kit.createImage(pathIcon);
         this.setIconImage(img);
     }
-   
+    public void VentanaSession(){
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,19 +162,24 @@ public class VentanaSession extends javax.swing.JFrame {
     public void setTime(int time){
         notTiempo.setText(Integer.toString(time/60000)+" minutos");
     }
-    public static void restartApplication(Runnable runBeforeRestart) throws IOException {
+    public  static void restartApplication(Runnable runBeforeRestart) throws IOException {
         Runtime obj = Runtime.getRuntime(); 
         try {
             obj.exec("C:\\Program Files (x86)\\CISESOFT\\NotificacionesCise.exe");
-        } catch (Exception e) {
+            obj.exec("C:\\Program Files (x86)\\CISESOFT\\VerifySession.exe");
+        } catch (IOException e) {
             obj.exec("C:\\Program Files\\CISESOFT\\NotificacionesCise.exe");
-        throw new IOException("Error while trying to restart the application", e);
+            obj.exec("C:\\Program Files\\CISESOFT\\VerifySession.exe");
         }
-        }
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+            Properties prop = new Properties();
             try {
-                // TODO add your handling code here:
+                //cambiar el valor de sesion a false
+                output = new FileOutputStream("dbd.properties");
+                prop.setProperty("sesion", "false");
+                //guardar datos
+                prop.store(output, null);
                 this.setVisible(false);
                 this.dispatchEvent(new WindowEvent(this,WindowEvent.WINDOW_CLOSED));
                 restartApplication(null);
