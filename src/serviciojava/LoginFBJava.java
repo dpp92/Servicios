@@ -36,22 +36,12 @@ public class LoginFBJava extends javax.swing.JFrame {
     }
     public LoginFBJava() {
         initComponents();
-        Properties prop = new Properties();
-        
-                
         URL pathIcon = this.getClass().getClassLoader().getResource("serviciojava/icon/logoapp.png");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(pathIcon);
         this.setIconImage(img);
     }
-    public  void restartApplication(Runnable runBeforeRestart) throws IOException {
-        obj = Runtime.getRuntime(); 
-        try {
-            obj.exec("C:\\Program Files (x86)\\CISESOFT\\VerifySession.exe");
-        } catch (IOException e) {
-            obj.exec("C:\\Program Files\\CISESOFT\\VerifySession.exe");
-        }
-    }
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,7 +91,6 @@ public class LoginFBJava extends javax.swing.JFrame {
         LoginUsuario nuevaSesion = new LoginUsuario();
         try {
             user = txtUsuario.getText();
-            obj.exit(0);
             nuevaSesion.LoginUser(user);
         } catch (Exception e) {
             System.out.println("Error al inicio: "+ e);
@@ -109,14 +98,25 @@ public class LoginFBJava extends javax.swing.JFrame {
         
         TIEMPO = nuevaSesion.getTIEMPO_MENSAJES();
             //Se ejecuta al inicio de loguearse
+            Properties prop = new Properties();
             if (nuevaSesion.OK == true) {
+            try {
                 VentanaSession loged = new VentanaSession();
+                output = new FileOutputStream("sesion.properties");
+                prop.setProperty("sesion", "true");
+                //guardar datos
+                prop.store(output, null);
                 loged.setUsuario(user);
                 loged.setTime(TIEMPO*60*1000);
                 this.setVisible(false);
                 loged.setVisible(true);
                 //ConfigBD conf = new ConfigBD();
                 //conf.setVisible(true);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(LoginFBJava.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(LoginFBJava.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }else{
                 JOptionPane.showMessageDialog(null,"No existe el usuario","",JOptionPane.ERROR_MESSAGE);
             }

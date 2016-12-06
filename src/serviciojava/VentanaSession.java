@@ -166,17 +166,17 @@ public class VentanaSession extends javax.swing.JFrame {
         Runtime obj = Runtime.getRuntime(); 
         try {
             obj.exec("C:\\Program Files (x86)\\CISESOFT\\NotificacionesCise.exe");
-            obj.exec("C:\\Program Files (x86)\\CISESOFT\\VerifySession.exe");
+            obj.exec("VerifySession.exe");
         } catch (IOException e) {
             obj.exec("C:\\Program Files\\CISESOFT\\NotificacionesCise.exe");
-            obj.exec("C:\\Program Files\\CISESOFT\\VerifySession.exe");
+            obj.exec("VerifySession.exe");
         }
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             Properties prop = new Properties();
             try {
                 //cambiar el valor de sesion a false
-                output = new FileOutputStream("dbd.properties");
+                output = new FileOutputStream("sesion.properties");
                 prop.setProperty("sesion", "false");
                 //guardar datos
                 prop.store(output, null);
